@@ -1,1 +1,0 @@
-# sqlmap_gui
