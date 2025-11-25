@@ -1,0 +1,48 @@
+{
+    "name": "sqlmap-gui",
+    "version": "1.0.0",
+    "description": "Modern desktop GUI for SQLMap - SQL injection testing tool",
+    "main": "main.js",
+    "author": "SQLMap GUI Team",
+    "license": "GPL-2.0",
+    "scripts": {
+        "start": "electron .",
+        "build:deb": "electron-builder --linux deb",
+        "build:appimage": "electron-builder --linux AppImage",
+        "build:linux": "electron-builder --linux"
+    },
+    "build": {
+        "appId": "com.sqlmap.gui",
+        "productName": "SQLMap GUI",
+        "linux": {
+            "target": [
+                "deb",
+                "AppImage"
+            ],
+            "category": "Security",
+            "icon": "assets/icons/",
+            "executableName": "sqlmap-gui"
+        },
+        "files": [
+            "**/*",
+            "!node_modules"
+        ],
+        "extraResources": [
+            {
+                "from": "../",
+                "to": "sqlmap",
+                "filter": [
+                    "sqlmap.py",
+                    "lib/**/*",
+                    "data/**/*",
+                    "thirdparty/**/*"
+                ]
+            }
+        ]
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "electron": "^28.0.0",
+        "electron-builder": "^24.9.1"
+    }
+}

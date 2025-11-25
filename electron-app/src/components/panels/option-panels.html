@@ -1,0 +1,241 @@
+<!-- Detection Panel -->
+<div id="detection-panel" class="panel">
+    <h2>Detection & Testing Options</h2>
+
+    <div class="option-group">
+        <div class="option-group-title">Testing Levels</div>
+
+        <div class="form-group">
+            <label for="level">Level (1-5): Controls test intensity</label>
+            <div class="range-container">
+                <input type="range" id="level" class="range-slider" min="1" max="5" value="1">
+                <span class="range-value" id="level-value">1</span>
+            </div>
+            <p class="help-text">Higher levels test more parameters and use more payloads</p>
+        </div>
+
+        <div class="form-group">
+            <label for="risk">Risk (1-5): Invasiveness of tests</label>
+            <div class="range-container">
+                <input type="range" id="risk" class="range-slider" min="1" max="3" value="1">
+                <span class="range-value" id="risk-value">1</span>
+            </div>
+            <p class="help-text">Higher risk may modify/delete database data</p>
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">String Matching</div>
+
+        <div class="form-group">
+            <label for="string-match">Match String</label>
+            <input type="text" id="string-match" class="input-field"
+                placeholder="Text that appears when query is valid">
+        </div>
+
+        <div class="form-group">
+            <label for="not-string">Not String</label>
+            <input type="text" id="not-string" class="input-field"
+                placeholder="Text that appears when query is invalid">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Advanced Detection</div>
+
+        <div class="checkbox-grid">
+            <label class="checkbox-item">
+                <input type="checkbox" id="code">
+                Match HTTP code
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="text-only">
+                Text only comparison
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="titles">
+                Compare page titles
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Enumeration Panel -->
+<div id="enumeration-panel" class="panel">
+    <h2>Database Enumeration</h2>
+
+    <div class="option-group">
+        <div class="option-group-title">Quick Enumeration</div>
+
+        <div class="checkbox-grid">
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-dbs">
+                Enumerate databases (--dbs)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-tables">
+                Enumerate tables (--tables)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-columns">
+                Enumerate columns (--columns)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-schema">
+                Get schema (--schema)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-count">
+                Count entries (--count)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="dump-table">
+                Dump table (--dump)
+            </label>
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Specific Targets</div>
+
+        <div class="form-group">
+            <label for="current-db">Database (-D)</label>
+            <input type="text" id="current-db" class="input-field" placeholder="target_database">
+        </div>
+
+        <div class="form-group">
+            <label for="current-table">Table (-T)</label>
+            <input type="text" id="current-table" class="input-field" placeholder="users">
+        </div>
+
+        <div class="form-group">
+            <label for="current-columns">Columns (-C)</label>
+            <input type="text" id="current-columns" class="input-field" placeholder="username,password">
+            <p class="help-text">Comma-separated list</p>
+        </div>
+
+        <div class="form-group">
+            <label for="exclude-cols">Exclude Columns (--exclude-col)</label>
+            <input type="text" id="exclude-cols" class="input-field" placeholder="id,timestamp">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">User & Privileges</div>
+
+        <div class="checkbox-grid">
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-users">
+                Enumerate users (--users)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-passwords">
+                Password hashes (--passwords)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-privileges">
+                User privileges (--privileges)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="get-roles">
+                User roles (--roles)
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Request Panel -->
+<div id="request-panel" class="panel">
+    <h2>HTTP Request Options</h2>
+
+    <div class="option-group">
+        <div class="option-group-title">Headers & Cookies</div>
+
+        <div class="form-group">
+            <label for="user-agent">User-Agent</label>
+            <input type="text" id="user-agent" class="input-field" placeholder="Mozilla/5.0...">
+            <label class="checkbox-item">
+                <input type="checkbox" id="random-agent">
+                Use random User-Agent (--random-agent)
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="referer">Referer</label>
+            <input type="text" id="referer" class="input-field" placeholder="https://example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="headers">Extra Headers (one per line)</label>
+            <textarea id="headers" class="input-field" rows="3" placeholder="X-Forwarded-For: 127.0.0.1
+Accept-Language: en-US"></textarea>
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Authentication</div>
+
+        <div class="form-group">
+            <label for="auth-type">Auth Type</label>
+            <select id="auth-type" class="input-field">
+                <option value="">None</option>
+                <option value="Basic">Basic</option>
+                <option value="Digest">Digest</option>
+                <option value="NTLM">NTLM</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="auth-cred">Credentials (user:pass)</label>
+            <input type="text" id="auth-cred" class="input-field" placeholder="admin:password123">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Proxy & Network</div>
+
+        <div class="form-group">
+            <label for="proxy">Proxy URL</label>
+            <input type="text" id="proxy" class="input-field" placeholder="http://127.0.0.1:8080">
+        </div>
+
+        <div class="form-group">
+            <label for="proxy-cred">Proxy Credentials</label>
+            <input type="text" id="proxy-cred" class="input-field" placeholder="user:pass">
+        </div>
+
+        <div class="checkbox-grid">
+            <label class="checkbox-item">
+                <input type="checkbox" id="tor">
+                Use Tor (--tor)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="check-tor">
+                Check Tor (--check-tor)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" id="ignore-proxy">
+                Ignore system proxy
+            </label>
+        </div>
+    </div>
+
+    <div class="option-group">
+        <div class="option-group-title">Timeouts & Delays</div>
+
+        <div class="form-group">
+            <label for="delay">Delay (seconds)</label>
+            <input type="number" id="delay" class="input-field" min="0" step="0.5" placeholder="0">
+        </div>
+
+        <div class="form-group">
+            <label for="timeout">Timeout (seconds)</label>
+            <input type="number" id="timeout" class="input-field" min="1" placeholder="30">
+        </div>
+
+        <div class="form-group">
+            <label for="retries">Retries</label>
+            <input type="number" id="retries" class="input-field" min="0" max="10" placeholder="3">
+        </div>
+    </div>
+</div>

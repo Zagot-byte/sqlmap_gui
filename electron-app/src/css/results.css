@@ -1,0 +1,157 @@
+/* ============================================
+   Results Viewer Styling
+   ============================================ */
+
+.results {
+    flex: 1;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    background-color: var(--bg-primary);
+}
+
+.results-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.placeholder-icon {
+    font-size: 64px;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.3;
+}
+
+.results-placeholder p {
+    font-size: 14px;
+}
+
+/* Results Cards */
+.results-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.results-card h3 {
+    color: var(--text-bright);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.card-icon {
+    font-size: 20px;
+}
+
+/* Vulnerability Badge */
+.vulnerability-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: var(--spacing-sm);
+}
+
+.vulnerability-badge.high {
+    background-color: rgba(244, 135, 113, 0.2);
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+}
+
+.vulnerability-badge.medium {
+    background-color: rgba(220, 220, 170, 0.2);
+    color: var(--accent-yellow);
+    border: 1px solid var(--accent-yellow);
+}
+
+.vulnerability-badge.low {
+    background-color: rgba(78, 201, 176, 0.2);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+}
+
+/* Database Tree */
+.db-tree {
+    margin: var(--spacing-md) 0;
+}
+
+.db-tree-node {
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+.db-tree-node:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.db-tree-icon {
+    margin-right: var(--spacing-sm);
+    color: var(--accent-primary);
+}
+
+.db-tree-children {
+    margin-left: var(--spacing-lg);
+    border-left: 1px solid var(--border-color);
+    padding-left: var(--spacing-md);
+}
+
+/* Tables List */
+.tables-list {
+    list-style: none;
+}
+
+.table-item {
+    padding: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-name {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.table-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Export Buttons */
+.export-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.export-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.export-btn:hover {
+    background-color: var(--bg-hover);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
