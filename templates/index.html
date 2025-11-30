@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQLMap GUI - Advanced SQL Injection Tool</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <h1> SQLMap GUI</h1>
+                <span class="version">v1.0.0</span>
+            </div>
+            <div class="header-actions">
+                <button id="stopAllScans" class="btn btn-danger" style="display:none;">⏹ Stop All Scans</button>
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="basic">Basic</button>
+            <button class="tab-btn" data-tab="advanced">Advanced</button>
+            <button class="tab-btn" data-tab="enumeration">Enumeration</button>
+            <button class="tab-btn" data-tab="output">Output</button>
+            <button class="tab-btn" data-tab="sessions">Sessions</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="content">
+            <!-- BASIC TAB -->
+            <div class="tab-content active" id="basic">
+                <div class="form-section">
+                    <h2>Target Configuration</h2>
+
+                    <div class="form-group">
+                        <label for="url">Target URL (-u)</label>
+                        <input type="text" id="url" placeholder="http://example.com/page.php?id=1" class="input-field">
+                        <small>Example: http://testphp.vulnweb.com/artists.php?artist=1</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postData">POST Data (--data)</label>
+                        <textarea id="postData" rows="3" placeholder="id=1&username=admin"
+                            class="input-field"></textarea>
+                        <small>Format: param1=value1&param2=value2</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="batch" checked>
+                                Batch Mode (--batch)
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="threads">Threads (--threads)</label>
+                            <div class="slider-container">
+                                <input type="range" id="threads" min="1" max="10" value="5">
+                                <span id="threadsValue">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="verbosity">Verbosity (-v)</label>
+                        <select id="verbosity" class="input-field">
+                            <option value="0">0 - Silent</option>
+                            <option value="1" selected>1 - Normal</option>
+                            <option value="2">2 - Verbose</option>
+                            <option value="3">3 - More Verbose</option>
+                            <option value="4">4 - Debug</option>
+                            <option value="5">5 - Trace</option>
+                            <option value="6">6 - Full Trace</option>
+                        </select>
+                    </div>
+
+                    <button id="startBasicScan" class="btn btn-primary btn-large">Start Scan</button>
+                </div>
+            </div>
+
+            <!-- ADVANCED TAB -->
+            <div class="tab-content" id="advanced">
+                <div class="form-section">
+                    <h2>Advanced Options</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="technique">Technique (--technique)</label>
+                            <select id="technique" class="input-field">
+                                <option value="BEUSTQ" selected>All</option>
+                                <option value="B">Boolean-based blind</option>
+                                <option value="E">Error-based</option>
+                                <option value="U">Union query-based</option>
+                                <option value="S">Stacked queries</option>
+                                <option value="T">Time-based blind</option>
+                                <option value="Q">Inline queries</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dbms">Force DBMS (--dbms)</label>
+                            <select id="dbms" class="input-field"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="level">Level (--level)</label>
+                            <div class="slider-container">
+                                <input type="range" id="level" min="1" max="5" value="1">
+                                <span id="levelValue">1</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="risk">Risk (--risk)</label>
+                            <div class="slider-container">
+                                <input type="range" id="risk" min="1" max="3" value="1">
+                                <span id="riskValue">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tamper">Tamper Scripts (--tamper)</label>
+                        <select id="tamper" class="input-field" multiple size="5"></select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="proxy">Proxy (--proxy)</label>
+                            <input type="text" id="proxy" placeholder="http://127.0.0.1:8080" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="tor"> Use Tor (--tor)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="delay">Delay (--delay)</label>
+                            <input type="number" id="delay" min="0" step="0.1" placeholder="0" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timeout">Timeout (--timeout)</label>
+                            <input type="number" id="timeout" min="1" value="30" class="input-field">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userAgent">User-Agent (--user-agent)</label>
+                        <input type="text" id="userAgent" placeholder="Default SQLMap UA" class="input-field">
+                        <label><input type="checkbox" id="randomAgent"> Random UA (--random-agent)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENUMERATION TAB -->
+            <div class="tab-content" id="enumeration">
+                <div class="form-section">
+                    <h2>Database Enumeration</h2>
+
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" id="getBanner"> Banner</label>
+                        <label><input type="checkbox" id="getCurrentUser"> Current User</label>
+                        <label><input type="checkbox" id="getCurrentDb"> Current DB</label>
+                        <label><input type="checkbox" id="getDbs"> List Databases</label>
+                        <label><input type="checkbox" id="getTables"> List Tables</label>
+                        <label><input type="checkbox" id="getColumns"> List Columns</label>
+                        <label><input type="checkbox" id="dump"> Dump</label>
+                        <label><input type="checkbox" id="dumpAll"> Dump All</label>
+                    </div>
+
+                    <h3>Target Specific</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dbName">Database (-D)</label>
+                            <input type="text" id="dbName" placeholder="database_name" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tableName">Table (-T)</label>
+                            <input type="text" id="tableName" placeholder="table_name" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="columnName">Columns (-C)</label>
+                            <input type="text" id="columnName" placeholder="col1,col2" class="input-field">
+                        </div>
+                    </div>
+
+                    <h3>Additional Options</h3>
+                    <div class="form-group">
+                        <label><input type="checkbox" id="excludeSysDbs"> Exclude System DBs</label>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dumpWhere">WHERE (--where)</label>
+                            <input type="text" id="dumpWhere" placeholder="id>10" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="limitStart">Start (--start)</label>
+                            <input type="number" id="limitStart" min="0" class="input-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="limitStop">Stop (--stop)</label>
+                            <input type="number" id="limitStop" min="0" class="input-field">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OUTPUT TAB -->
+            <div class="tab-content" id="output">
+                <div class="output-section">
+                    <h2>Live Output</h2>
+                    <div class="terminal-container" id="terminalContainer">
+                        <div class="terminal-placeholder">No active scans yet.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SESSIONS TAB -->
+            <div class="tab-content" id="sessions">
+                <div class="form-section">
+                    <h2>Session Management</h2>
+
+                    <div class="session-actions">
+                        <input type="text" id="sessionName" placeholder="Enter session name" class="input-field">
+                        <button id="saveSession" class="btn btn-secondary">Save Session</button>
+                    </div>
+
+                    <h3>Saved Sessions</h3>
+                    <div id="sessionList" class="session-list">
+                        <div class="loading">Loading sessions...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS -->
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
